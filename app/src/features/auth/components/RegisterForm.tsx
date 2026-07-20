@@ -14,6 +14,9 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router";
+import SocialAuthButtons from "./SocialAuthButtons";
+import AuthLegalNotice from "./AuthLegalNotice";
 
 function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -60,18 +63,16 @@ function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
               </Field>
               <Field>
                 <Button type="submit">Create Account</Button>
+                <SocialAuthButtons action="register" />
                 <FieldDescription className="text-center">
-                  Already have an account? <a href="#">Sign in</a>
+                  Already have an account? <Link to="/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
-      <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
-      </FieldDescription>
+      <AuthLegalNotice />
     </div>
   );
 }

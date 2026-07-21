@@ -1,8 +1,9 @@
 import EditableWorkboardName from "@/features/workboard/components/EditableWorkboardName";
 import WorkboardMembers from "@/features/workboard/components/WorkboardMembers";
-import { Funnel, Star, UserRoundPlus, Ellipsis, Plus } from "lucide-react";
+import { Funnel, Star, UserRoundPlus, Ellipsis } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import IconButton from "@/components/shared/IconButton";
+import CreateListCard from "@/features/workboard/components/CreateListCard";
 
 function WorkboardPage() {
   return (
@@ -34,13 +35,7 @@ function WorkboardPage() {
 
       <div className="bg-grid flex flex-1 items-start gap-4 overflow-x-auto p-6">
         {/* Колонки дошки */}
-        <Button
-          variant="secondary"
-          className="h-auto w-72 shrink-0 justify-start rounded-xl border border-dashed border-border px-4 py-3 text-muted-foreground hover:text-foreground"
-        >
-          <Plus />
-          Add a list
-        </Button>
+        <CreateListCard />
       </div>
     </div>
   );

@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-
-const DEFAULT_NAME = "New Workboard";
-const MAX_NAME_LENGTH = 50;
+import {
+  MAX_WORKBOARD_NAME_LENGTH,
+  DEFAULT_WORKBOARD_NAME,
+} from "@/features/workboard/constants";
 
 function EditableWorkboardName() {
-  const [workboardName, setWorkboardName] = useState(DEFAULT_NAME);
-  const [workboardNameDraft, setWorkboardNameDraft] = useState(DEFAULT_NAME);
+  const [workboardName, setWorkboardName] = useState(DEFAULT_WORKBOARD_NAME);
+  const [workboardNameDraft, setWorkboardNameDraft] = useState(
+    DEFAULT_WORKBOARD_NAME,
+  );
   const [isEditing, setIsEditing] = useState(false);
 
   const saveWorkboardName = () => {
@@ -44,8 +47,8 @@ function EditableWorkboardName() {
           onKeyDown={onKeyDown}
           autoFocus
           aria-label="Workboard name"
-          className="h-10 text-lg font-semibold md:text-lg"
-          maxLength={MAX_NAME_LENGTH}
+          className="h-10 text-lg font-semibold"
+          maxLength={MAX_WORKBOARD_NAME_LENGTH}
         />
       ) : (
         <Button

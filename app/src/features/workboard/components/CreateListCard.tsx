@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { MAX_LIST_NAME_LENGTH } from "@/features/workboard/constants";
+import useClickOutside from "@/hooks/useClickOutside";
 
 function CreateListCard() {
   const [isCreating, setIsCreating] = useState(false);
   const [title, setTitle] = useState("");
 
-  const cancelCreating = () => {
+  const cancelCreating = useCallback(() => {
     setTitle("");
     setIsCreating(false);
-  };
+  }, []);
+
+  const formRef = useClickOutside<HTMLFormElement>(isCreating, cancelCreating);
 
   const submitList = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ function CreateListCard() {
 
   return (
     <form
+      ref={formRef}
       onSubmit={submitList}
       onKeyDown={(e) => e.key === "Escape" && cancelCreating()}
       className="flex w-72 shrink-0 flex-col gap-2 rounded-xl border border-border bg-secondary p-3"

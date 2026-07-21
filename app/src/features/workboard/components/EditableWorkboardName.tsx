@@ -44,7 +44,7 @@ function EditableWorkboardName() {
           onKeyDown={onKeyDown}
           autoFocus
           aria-label="Workboard name"
-          className="h-9 font-medium"
+          className="h-10 text-lg font-semibold md:text-lg"
           maxLength={MAX_NAME_LENGTH}
         />
       ) : (
@@ -53,9 +53,9 @@ function EditableWorkboardName() {
             setWorkboardNameDraft(workboardName);
             setIsEditing(true);
           }}
-          variant="ghost"
+          variant="surface"
           size="lg"
-          className="font-medium"
+          className="h-10 bg-transparent text-lg font-semibold"
           aria-label={`Rename workboard: ${workboardName}`}
         >
           {workboardName}

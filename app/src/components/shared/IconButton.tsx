@@ -7,8 +7,8 @@ function IconButton({
 }: React.ComponentProps<typeof Button>) {
   return (
     <Button
-      variant="secondary"
-      className={cn("rounded-full size-9", className)}
+      variant="surface"
+      className={cn("size-9", className)}
       {...props}
     />
   );

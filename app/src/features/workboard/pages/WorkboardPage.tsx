@@ -4,6 +4,7 @@ import { Funnel, Star, UserRoundPlus, Ellipsis } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import IconButton from "@/components/shared/IconButton";
 import CreateListCard from "@/features/workboard/components/CreateListCard";
+import ListCard from "@/features/workboard/components/ListCard";
 
 function WorkboardPage() {
   return (
@@ -35,6 +36,7 @@ function WorkboardPage() {
 
       <div className="bg-grid flex flex-1 items-start gap-4 overflow-x-auto p-6">
         {/* Колонки дошки */}
+        <ListCard />
         <CreateListCard />
       </div>
     </div>

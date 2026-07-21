@@ -2,10 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from "lucide-react";
 import { useState, useCallback } from "react";
-import { MAX_LIST_NAME_LENGTH } from "@/features/workboard/constants";
+import {
+  MAX_LIST_NAME_LENGTH,
+  LIST_WIDTH,
+} from "@/features/workboard/constants";
 import useClickOutside from "@/hooks/useClickOutside";
+import { cn } from "@/lib/utils";
 
-function CreateListCard() {
+function CreateList() {
   const [isCreating, setIsCreating] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -29,7 +33,10 @@ function CreateListCard() {
     return (
       <Button
         variant="secondary"
-        className="h-auto w-72 shrink-0 justify-start rounded-xl border border-dashed border-border px-4 py-3 text-muted-foreground hover:text-foreground"
+        className={cn(
+          "h-auto shrink-0 justify-start rounded-xl border border-dashed border-border px-4 py-3 text-muted-foreground hover:text-foreground",
+          LIST_WIDTH,
+        )}
         onClick={() => setIsCreating(true)}
       >
         <Plus />
@@ -43,7 +50,10 @@ function CreateListCard() {
       ref={formRef}
       onSubmit={submitList}
       onKeyDown={(e) => e.key === "Escape" && cancelCreating()}
-      className="flex w-72 shrink-0 flex-col gap-2 rounded-xl border border-border bg-secondary p-3"
+      className={cn(
+        "flex shrink-0 flex-col gap-2 rounded-xl border border-border bg-secondary p-3",
+        LIST_WIDTH,
+      )}
     >
       <Input
         value={title}
@@ -71,4 +81,4 @@ function CreateListCard() {
   );
 }
 
-export default CreateListCard;
+export default CreateList;

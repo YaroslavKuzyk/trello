@@ -6,7 +6,7 @@ import {
   DEFAULT_WORKBOARD_NAME,
 } from "@/features/workboard/constants";
 
-function EditableWorkboardName() {
+function EditableBoardName() {
   const [workboardName, setWorkboardName] = useState(DEFAULT_WORKBOARD_NAME);
   const [workboardNameDraft, setWorkboardNameDraft] = useState(
     DEFAULT_WORKBOARD_NAME,
@@ -68,4 +68,4 @@ function EditableWorkboardName() {
   );
 }
 
-export default EditableWorkboardName;
+export default EditableBoardName;

@@ -6,7 +6,7 @@ import {
   AvatarGroupCount,
 } from "@/components/ui/avatar";
 
-function WorkboardMembers() {
+function BoardMembers() {
   return (
     <AvatarGroup>
       <Avatar>
@@ -29,4 +29,4 @@ function WorkboardMembers() {
   );
 }
 
-export default WorkboardMembers;
+export default BoardMembers;

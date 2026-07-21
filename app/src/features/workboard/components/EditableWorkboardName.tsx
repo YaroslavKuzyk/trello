@@ -55,7 +55,7 @@ function EditableWorkboardName() {
           }}
           variant="ghost"
           size="lg"
-          className="cursor-pointer font-medium"
+          className="font-medium"
           aria-label={`Rename workboard: ${workboardName}`}
         >
           {workboardName}

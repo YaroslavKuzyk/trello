@@ -7,7 +7,7 @@ function ListHeader() {
       <h2 className="text-sm font-semibold">List Title</h2>
 
       <div className="flex items-center gap-1">
-        <span className="text-sm text-muted-foreground">0</span>
+        <span className="text-sm text-muted-foreground">3</span>
 
         <Button variant="ghost" size="icon" aria-label="List options">
           <Ellipsis />

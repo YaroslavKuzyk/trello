@@ -14,7 +14,7 @@ function TaskCard({ title, coverUrl }: TaskCardProps) {
   const hasCover = Boolean(coverUrl);
 
   return (
-    <div className="group/task relative overflow-hidden rounded-lg border border-border bg-card">
+    <div className="group/task relative shrink-0 overflow-hidden rounded-lg border border-border bg-card">
       <div className="absolute top-1.5 right-1.5 z-10">
         <TaskCardDropdown title={title} />
       </div>

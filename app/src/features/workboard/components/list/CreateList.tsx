@@ -1,33 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plus, X } from "lucide-react";
-import { useState, useCallback } from "react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 import {
-  MAX_LIST_NAME_LENGTH,
   LIST_WIDTH,
+  MAX_LIST_NAME_LENGTH,
 } from "@/features/workboard/constants";
-import useClickOutside from "@/hooks/useClickOutside";
 import { cn } from "@/lib/utils";
+import CreateEntityForm from "@/features/workboard/components/CreateEntityForm";
 
 function CreateList() {
   const [isCreating, setIsCreating] = useState(false);
-  const [title, setTitle] = useState("");
-
-  const cancelCreating = useCallback(() => {
-    setTitle("");
-    setIsCreating(false);
-  }, []);
-
-  const formRef = useClickOutside<HTMLFormElement>(isCreating, cancelCreating);
-
-  const submitList = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!title.trim()) {
-      return;
-    }
-    // TODO: створення списку, коли з'явиться джерело даних
-    setTitle("");
-  };
 
   if (!isCreating) {
     return (
@@ -46,38 +28,16 @@ function CreateList() {
   }
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={submitList}
-      onKeyDown={(e) => e.key === "Escape" && cancelCreating()}
-      className={cn(
-        "flex shrink-0 flex-col gap-2 rounded-xl border border-border bg-secondary p-3",
-        LIST_WIDTH,
-      )}
-    >
-      <Input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+    <div className={cn("shrink-0", LIST_WIDTH)}>
+      <CreateEntityForm
+        variant="list"
         placeholder="Enter list title..."
-        aria-label="List title"
-        maxLength={MAX_LIST_NAME_LENGTH}
-        autoFocus
+        ariaLabel="List title"
+        submitLabel="Add list"
+        maxTitleLength={MAX_LIST_NAME_LENGTH}
+        onCancel={() => setIsCreating(false)}
       />
-      <div className="flex items-center gap-2">
-        <Button type="submit" disabled={!title.trim()}>
-          Add list
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          onClick={cancelCreating}
-          aria-label="Cancel"
-        >
-          <X />
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 }
 

@@ -1,3 +1,6 @@
+// Назва картки — це зазвичай коротке речення, тож ліміт більший, ніж у списку.
+export const MAX_CARD_NAME_LENGTH = 200;
+
 // Дії картки з'являються на ховер/фокус, але на тач-екранах видимі завжди.
 export const REVEAL_ON_HOVER =
   "opacity-0 transition-opacity group-hover/task:opacity-100 " +

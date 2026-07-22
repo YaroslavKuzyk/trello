@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LIST_WIDTH } from "@/features/workboard/constants";
-import { TaskCard } from "@/features/workboard/components/card";
+import { TaskCard, CreateCard } from "@/features/workboard/components/card";
 import ListHeader from "./ListHeader";
 
 function List() {
@@ -26,11 +24,7 @@ function List() {
         <TaskCard title="Task #3" />
       </div>
 
-      {/* Додати картку */}
-      <Button variant="ghost" size="lg" className="justify-start">
-        <Plus />
-        Add a card
-      </Button>
+      <CreateCard />
     </div>
   );
 }

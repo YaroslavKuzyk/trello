@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Ellipsis } from "lucide-react";
+import ListHeaderDropdown from "./ListHeaderDropdown";
 
 function ListHeader() {
   return (
@@ -9,9 +8,7 @@ function ListHeader() {
       <div className="flex items-center gap-1">
         <span className="text-sm text-muted-foreground">3</span>
 
-        <Button variant="ghost" size="icon" aria-label="List options">
-          <Ellipsis />
-        </Button>
+        <ListHeaderDropdown />
       </div>
     </div>
   );

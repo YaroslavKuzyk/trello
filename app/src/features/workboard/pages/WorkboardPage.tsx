@@ -3,6 +3,7 @@ import { List, CreateList } from "@/features/workboard/components/list";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { SwitchWorkboardDrawer } from "@/features/workboard/components/switch-workboard";
 
 function WorkboardPage() {
   return (
@@ -22,7 +23,7 @@ function WorkboardPage() {
             <Button variant="outline">Calendar</Button>
           </ButtonGroup>
           <Separator orientation="vertical" />
-          <Button variant="outline">Switch workboard</Button>
+          <SwitchWorkboardDrawer />
         </div>
       </div>
     </div>

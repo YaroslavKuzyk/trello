@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
 import IconButton from "@/components/shared/IconButton";
-import { Funnel, Star, UserRoundPlus } from "lucide-react";
+import { Funnel, Star } from "lucide-react";
 import EditableBoardName from "./EditableBoardName";
 import BoardMembers from "./BoardMembers";
 import BoardDropdown from "./BoardDropdown";
+import BoardInvite from "./BoardInvite";
 
 function BoardHeader() {
   return (
@@ -21,10 +21,7 @@ function BoardHeader() {
           <Star />
         </IconButton>
 
-        <Button className="px-4" size="lg">
-          <UserRoundPlus />
-          Invite
-        </Button>
+        <BoardInvite />
 
         <BoardDropdown />
       </div>

@@ -17,7 +17,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-function TaskCardDropdown({ title }: { title: string }) {
+type TaskCardDropdownProps = {
+  title: string;
+  onOpenCard: () => void;
+};
+
+function TaskCardDropdown({ title, onOpenCard }: TaskCardDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,7 +36,7 @@ function TaskCardDropdown({ title }: { title: string }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-auto">
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={onOpenCard}>
           <Eye />
           Open card
         </DropdownMenuItem>

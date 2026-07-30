@@ -13,6 +13,16 @@ export const REVEAL_CHECKBOX =
   "data-[state=checked]:w-4 data-[state=checked]:opacity-100 " +
   "max-md:w-4 max-md:opacity-100";
 
+// Заголовок секції всередині модалки картки (Content, Checklist, Materials…).
+export const DIALOG_SECTION_TITLE =
+  "flex items-center gap-2 text-sm font-medium";
+
+// Олівець редагування секції: з'являється на ховер/фокус самої секції,
+// на тач-екранах видимий завжди — там ховера не існує.
+export const REVEAL_ON_SECTION_HOVER =
+  "opacity-0 transition-opacity group-hover/section:opacity-100 " +
+  "group-focus-within/section:opacity-100 max-md:opacity-100";
+
 // Кнопка редагування позиційована абсолютно у правому верхньому куті картки.
 // Без обкладинки вона накриває верхні рядки контенту, тож їм потрібен відступ.
 export const RESERVE_ACTION = "pr-10";

@@ -1,9 +1,10 @@
 import IconButton from "@/components/shared/IconButton";
-import { Funnel, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import EditableBoardName from "./EditableBoardName";
 import BoardMembers from "./BoardMembers";
 import BoardDropdown from "./BoardDropdown";
 import BoardInvite from "./BoardInvite";
+import BoardFilters from "./BoardFilters";
 
 function BoardHeader() {
   return (
@@ -13,9 +14,7 @@ function BoardHeader() {
       <div className="flex items-center gap-2">
         <BoardMembers />
 
-        <IconButton aria-label="Filter">
-          <Funnel />
-        </IconButton>
+        <BoardFilters />
 
         <IconButton aria-label="Favorite">
           <Star />

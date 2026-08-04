@@ -4,12 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class LoginRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the request is authorized.
      */
     public function authorize(): bool
     {
@@ -19,13 +18,17 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
+     * Deliberately no password-strength rules here: the policy applies when a
+     * password is chosen, not when an existing one is presented. Enforcing it
+     * would lock out accounts created under an older policy.
+     *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', Password::defaults()],
+            'password' => ['required', 'string'],
         ];
     }
 }

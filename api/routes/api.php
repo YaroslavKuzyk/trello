@@ -1,13 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 // Public routes
-Route::get("/", function () {
-    return response()->json([
-        "message" => "Welcome to the Trello API",
-    ]);
-});
+Route::post("/auth/register", [AuthController::class, "register"]);
 
 // Private routes
 Route::middleware('auth:sanctum')->group(function () {

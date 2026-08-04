@@ -7,7 +7,6 @@ use App\DTO\LoginData;
 use App\DTO\RegisterData;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\AuthResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,16 +19,22 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $result = $this->authService->register(RegisterData::fromRequest($request));
+        $user = $this->authService->register(RegisterData::fromRequest($request));
 
-        return AuthResource::make($result)->response()->setStatusCode(201);
+        $request->session()->regenerate();
+
+        return UserResource::make($user)->response()->setStatusCode(201);
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $result = $this->authService->login(LoginData::fromRequest($request));
+        $user = $this->authService->login(LoginData::fromRequest($request));
 
-        return AuthResource::make($result)->response()->setStatusCode(200);
+        // Against session fixation: the id handed out before the login must not
+        // be the one that ends up authenticated.
+        $request->session()->regenerate();
+
+        return UserResource::make($user)->response()->setStatusCode(200);
     }
 
     public function me(Request $request): JsonResponse
@@ -39,7 +44,10 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $this->authService->logout($request->user());
+        $this->authService->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return response()->json(status: 204);
     }

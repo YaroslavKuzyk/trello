@@ -3,23 +3,15 @@
 namespace App\Services;
 
 use App\Contracts\AuthServiceInterface;
-use App\DTO\AuthResult;
 use App\DTO\LoginData;
 use App\DTO\RegisterData;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class AuthService implements AuthServiceInterface
 {
-    /**
-     * Hash compared against when no user matches, so that an unknown email
-     * costs the same time as a wrong password.
-     */
-    private static ?string $dummyHash = null;
-
-    public function register(RegisterData $data): AuthResult
+    public function register(RegisterData $data): User
     {
         $user = User::create([
             'name' => $data->name,
@@ -27,29 +19,28 @@ class AuthService implements AuthServiceInterface
             'password' => $data->password,
         ]);
 
-        return new AuthResult($user, $user->createToken('auth_token')->plainTextToken);
+        Auth::guard('web')->login($user);
+
+        return $user;
     }
 
-    public function login(LoginData $data): AuthResult
+    public function login(LoginData $data): User
     {
-        $user = User::where('email', $data->email)->first();
+        $credentials = ['email' => $data->email, 'password' => $data->password];
 
-        if (! Hash::check($data->password, $user?->password ?? $this->dummyHash())) {
+        if (!Auth::guard('web')->attempt($credentials)) {
             throw ValidationException::withMessages([
                 'email' => [__('auth.failed')],
             ]);
         }
 
-        return new AuthResult($user, $user->createToken('auth_token')->plainTextToken);
+        $user = Auth::guard('web')->user();
+
+        return $user;
     }
 
-    public function logout(User $user): void
+    public function logout(): void
     {
-        $user->currentAccessToken()->delete();
-    }
-
-    private function dummyHash(): string
-    {
-        return self::$dummyHash ??= Hash::make(Str::random(40));
+        Auth::guard('web')->logout();
     }
 }

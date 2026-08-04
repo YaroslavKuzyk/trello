@@ -1,10 +1,5 @@
-/** Laravel's validation payload: { "email": ["These credentials do not match our records."] } */
 export type ValidationErrors = Record<string, string[]>
 
-/**
- * Every non-2xx response from the API is thrown as this, so callers never have
- * to inspect a raw Response.
- */
 export class ApiError extends Error {
     readonly status: number
     readonly errors: ValidationErrors
@@ -43,7 +38,10 @@ export class ApiError extends Error {
         return this.status === 429
     }
 
-    /** First message for a field, for wiring straight into a form input. */
+    get isCsrfMismatch(): boolean {
+        return this.status === 419
+    }
+
     fieldError(field: string): string | undefined {
         return this.errors[field]?.[0]
     }

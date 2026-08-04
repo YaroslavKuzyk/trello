@@ -5,15 +5,11 @@ export interface IUser {
     created_at: string
 }
 
-export interface IAuthResponse {
-    user: IUser
-    token: string
-}
-
 export interface IRegisterPayload {
     name: string
     email: string
     password: string
+    password_confirmation: string
 }
 
 export interface ILoginPayload {

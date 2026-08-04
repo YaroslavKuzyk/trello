@@ -20,6 +20,7 @@ import AuthLegalNotice from "./AuthLegalNotice";
 import { useRegister } from "../hooks/useRegister";
 import type React from "react";
 import { useNavigate } from "react-router";
+import { formValue } from "@/lib/form";
 
 function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
   const navigate = useNavigate();
@@ -30,14 +31,14 @@ function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
     const form = new FormData(e.currentTarget);
     register.mutate(
       {
-        name: form.get("name") as string,
-        email: form.get("email") as string,
-        password: form.get("password") as string,
-        password_confirmation: form.get("password_confirmation") as string,
+        name: formValue(form, "name"),
+        email: formValue(form, "email"),
+        password: formValue(form, "password"),
+        password_confirmation: formValue(form, "password_confirmation"),
       },
       {
         onSuccess: () => {
-          navigate("/");
+          navigate("/", { replace: true });
         },
       },
     );

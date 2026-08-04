@@ -17,8 +17,34 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router";
 import SocialAuthButtons from "./SocialAuthButtons";
 import AuthLegalNotice from "./AuthLegalNotice";
+import { useLocation, useNavigate } from "react-router";
+import { useLogin } from "@/features/auth/hooks/useLogin";
+import { formValue } from "@/lib/form";
 
 function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const login = useLogin();
+
+  const from = (location.state as { from?: { pathname: string } } | null)?.from
+    ?.pathname;
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    login.mutate(
+      {
+        email: formValue(form, "email"),
+        password: formValue(form, "password"),
+      },
+      {
+        onSuccess: () => {
+          navigate(from ?? "/", { replace: true });
+        },
+      },
+    );
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -29,16 +55,22 @@ function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={onSubmit}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="m@example.com"
                   required
                 />
+                {login.error?.fieldError("email") && (
+                  <FieldDescription className="text-red-500">
+                    {login.error.fieldError("email")}
+                  </FieldDescription>
+                )}
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -50,10 +82,17 @@ function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
                     Forgot your password?
                   </Link>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" name="password" required />
+                {login.error?.fieldError("password") && (
+                  <FieldDescription className="text-red-500">
+                    {login.error.fieldError("password")}
+                  </FieldDescription>
+                )}
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit" disabled={login.isPending}>
+                  {login.isPending ? "Logging in..." : "Login"}
+                </Button>
                 <SocialAuthButtons action="login" />
                 <FieldDescription className="text-center">
                   Don&apos;t have an account?{" "}

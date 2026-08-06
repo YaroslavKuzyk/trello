@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'start_date',
     'due_date',
     'content',
+    'cover_file_id',
 ])]
 class Task extends Model
 {
@@ -50,5 +51,15 @@ class Task extends Model
     public function files(): BelongsToMany
     {
         return $this->belongsToMany(File::class, 'task_files', 'task_id', 'file_id');
+    }
+
+    public function checkpoints(): HasMany
+    {
+        return $this->hasMany(TaskCheckpoint::class, 'task_id');
+    }
+
+    public function coverFile(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'cover_file_id');
     }
 }

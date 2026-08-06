@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'assignee_id');
     }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class, 'user_id');
+    }
 }
